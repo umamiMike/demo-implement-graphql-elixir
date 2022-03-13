@@ -1,4 +1,4 @@
-defmodule CommunityWeb.Endpoint do
+defmodule Community.Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :community
 
   # The session will be stored in the cookie and signed,

@@ -1,4 +1,4 @@
-defmodule CommunityWeb.ErrorHelpers do
+defmodule Community.Web.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
