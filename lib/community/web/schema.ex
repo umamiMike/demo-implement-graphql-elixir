@@ -19,10 +19,10 @@ defmodule Community.Web.Schema do
   mutation do
     @desc "create a new link"
     field :create_link, :link do
-      arg :url, non_null(:string))
-      arg :description, non_null(:string))
+      arg(:url, non_null(:string))
+      arg(:description, non_null(:string))
 
-      resolve(&NewsResolver.create_link/3)
+      resolve(&Web.NewsResolver.create_link/3)
     end
   end
 end
