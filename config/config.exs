@@ -11,23 +11,10 @@ config :community,
   ecto_repos: [Community.Repo]
 
 # Configures the endpoint
-config :community, CommunityWeb.Endpoint,
+config :community, Community.Web.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: CommunityWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: Community.PubSub,
-  live_view: [signing_salt: "ZiW+g4VB"]
-
-# Configures the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
-config :community, Community.Mailer, adapter: Swoosh.Adapters.Local
-
-# Swoosh API client is needed for adapters other than SMTP.
-config :swoosh, :api_client, false
+  secret_key_base: "6wqiNtvb8tY2u3Xlwy5d2QjhW7/+SyGhLw+meFo0D+Hv0xtTxx7VuXHkNNfcIJyx",
+  render_errors: [view: Community.Web.ErrorView, accepts: ~w(json), layout: false]
 
 # Configures Elixir's Logger
 config :logger, :console,

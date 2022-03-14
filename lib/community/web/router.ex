@@ -1,16 +1,16 @@
-defmodule CommunityWeb.Router do
-  use CommunityWeb, :router
+defmodule Community.Web.Router do
+  use Community.Web, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/", CommunityWeb do
+  scope "/" do
     pipe_through :api
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
-      schema: CommunityWeb.Schema,
+      schema: Community.Web.Schema,
       interface: :simple,
-      context: %{pubsub: CommunityWeb.Endpoint}
+      context: %{pubsub: Community.Web.Endpoint}
   end
 end

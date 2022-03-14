@@ -1,16 +1,10 @@
 defmodule Community.Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :community
-
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
-  @session_options [
-    store: :cookie,
-    key: "_community_key",
-    signing_salt: "ZeLJh14y"
-  ]
-
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  #
+  socket "/socket", Community.Web.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -26,15 +20,10 @@ defmodule Community.Web.Endpoint do
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :community
   end
 
-  plug Phoenix.LiveDashboard.RequestLogger,
-    param_key: "request_logger",
-    cookie_key: "request_logger"
-
   plug Plug.RequestId
-  plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
+  plug Plug.Logger
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
@@ -43,6 +32,23 @@ defmodule Community.Web.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-  plug Plug.Session, @session_options
-  plug CommunityWeb.Router
+
+  plug Plug.Session,
+    store: :cookie,
+    key: "_community_key",
+    signing_salt: "FC8ticpm"
+
+  plug Community.Web.Router
+
+  @doc """
+  Dynamically loads configuration from the system environment
+  on startup.
+
+  It receives the endpoint configuration from the config files
+  and must return the updated configuration.
+  """
+  def load_from_system_env(config) do
+    port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
+    {:ok, Keyword.put(config, :http, [:inet6, port: port])}
+  end
 end

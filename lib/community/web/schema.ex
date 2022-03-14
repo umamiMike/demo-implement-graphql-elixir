@@ -1,4 +1,4 @@
-defmodule CommunityWeb.Schema do
+defmodule Community.Web.Schema do
   use Absinthe.Schema
 
   alias Community.{Web, News}

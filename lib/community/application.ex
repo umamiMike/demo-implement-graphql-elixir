@@ -10,12 +10,11 @@ defmodule Community.Application do
     children = [
       # Start the Ecto repository
       Community.Repo,
-      # Start the Telemetry supervisor
-      CommunityWeb.Telemetry,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: Community.PubSub},
+      Community.Web.Endpoint,
+      {Phoenix.PubSub, [name: Community.PubSub, adapter: Phoenix.PubSub.PG2]}
+
       # Start the Endpoint (http/https)
-      CommunityWeb.Endpoint
+
       # Start a worker by calling: Community.Worker.start_link(arg)
       # {Community.Worker, arg}
     ]
@@ -30,7 +29,7 @@ defmodule Community.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    CommunityWeb.Endpoint.config_change(changed, removed)
+    Community.Web.Endpoint.config_change(changed, removed)
     :ok
   end
 end
